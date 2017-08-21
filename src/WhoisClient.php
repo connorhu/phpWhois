@@ -76,7 +76,7 @@ class WhoisClient
     );
 
     /** @var string Current release of the package */
-    public $codeVersion = null;
+    const CODE_VERSION = '5.0.0-dev';
 
     /** @var string Full code and data version string (e.g. 'Whois2.php v3.01:16') */
     public $version;
@@ -95,9 +95,8 @@ class WhoisClient
         $this->WHOIS_SPECIAL      = $servers['WHOIS_SPECIAL'];
         $this->WHOIS_GTLD_HANDLER = $servers['WHOIS_GTLD_HANDLER'];
 
-        $this->codeVersion = file_get_contents(__DIR__ . '/../VERSION');
         // Set version
-        $this->version = sprintf("phpWhois v%s", $this->codeVersion);
+        $this->version = sprintf("phpWhois v%s", self::CODE_VERSION);
     }
 
     /**
@@ -150,7 +149,7 @@ class WhoisClient
 
                 // replace substitution parameters
                 $query_args = str_replace('{query}', $query, $query_args);
-                $query_args = str_replace('{version}', 'phpWhois' . $this->codeVersion, $query_args);
+                $query_args = str_replace('{version}', 'phpWhois' . self::CODE_VERSION, $query_args);
 
                 $iptools = new IpTools;
                 if (strpos($query_args, '{ip}') !== false) {
